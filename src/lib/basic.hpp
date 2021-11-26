@@ -45,6 +45,8 @@ namespace Basic
         u_int32_t m_pos;
         char m_currentChar;
 
+        Token MakeNumber();
+
     public:
         Lexer(string a_text);
 
