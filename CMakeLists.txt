@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 # Project name
-project(cppstarter)
+project(programmang-lang)
 
 # Build for C++20 if we can
 set(CMAKE_CXX_STANDARD 20)
@@ -25,12 +25,19 @@ else()
 endif()
 
 # Any source files in this directory
-set(SOURCE_FILES src/main/main.cpp)
+set(SOURCE_FILES 
+	src/main/main.cpp
+)
 
 include(FetchContent)
 
+# Where any include files are
+include_directories(src/lib)
+
+set(LIBRARY_NAME basic_lib)
 
 # Subdirectories to build
+add_subdirectory(src/lib)
 add_subdirectory(src/tests)
 
 
@@ -38,3 +45,4 @@ add_subdirectory(src/tests)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Link
+target_link_libraries(${PROJECT_NAME} ${LIBRARY_NAME})
