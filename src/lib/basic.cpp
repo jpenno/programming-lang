@@ -11,8 +11,36 @@ using namespace Basic;
 vector<Token> Basic::Run(const string &text)
 {
     Lexer lexer = Lexer(text);
-    vector<Token> tokens = lexer.MakeTokens();
+    auto [tokens, errors] = lexer.MakeTokens();
+
+    if (!errors.empty())
+    {
+        for (auto &&error : errors)
+        {
+            error.Print();
+        }
+    }
     return tokens;
+}
+
+void Basic::PrintRedText(const char *a_text)
+{
+    printf("\x1B[31m%s\033[0m", a_text);
+}
+string Basic::Error::AsString()
+{
+    string result = "";
+    result += m_name;
+    result += ": ";
+    result += m_details;
+
+    return result;
+}
+
+void Basic::Error::Print()
+{
+    PrintRedText(m_name.c_str());
+    cout << " : " << m_details << endl;
 }
 
 Basic::Token::Token(TT a_type, string a_value = "")
@@ -88,9 +116,10 @@ char Basic::Lexer::GetCurrentChar()
     return m_currentChar;
 }
 
-vector<Token> Basic::Lexer::MakeTokens()
+std::tuple<vector<Token>, vector<Error>> Basic::Lexer::MakeTokens()
 {
     vector<Token> tokens = vector<Token>();
+    vector<Error> errors = vector<Error>();
 
     while (InRange())
     {
@@ -134,11 +163,14 @@ vector<Token> Basic::Lexer::MakeTokens()
         }
         else
         {
-            cout << "Not Handled" << endl;
-            Advance();
+            string details = "'";
+            details += m_currentChar;
+            details += "'";
+            errors.push_back(Error("Illegal Character", details));
+            return {tokens, errors};
         }
     }
-    return tokens;
+    return {tokens, errors};
 }
 
 Token Basic::Lexer::MakeNumber()
@@ -146,7 +178,7 @@ Token Basic::Lexer::MakeNumber()
     string numStr = "";
     int dotCount = 0;
 
-    while (InRange() && isdigit(m_currentChar))
+    while (InRange() && (isdigit(m_currentChar) || m_currentChar == '.'))
     {
         if (m_currentChar == '.')
         {
@@ -167,7 +199,6 @@ Token Basic::Lexer::MakeNumber()
 
     if (dotCount == 0)
     {
-        cout << "numStr: " << numStr << endl;
         return Token(TT::INT, numStr);
     }
     else
