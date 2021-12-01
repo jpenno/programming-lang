@@ -6,22 +6,25 @@
 #include <vector>
 #include <tuple>
 
+#include "TT.hpp"
+#include "Token.hpp"
+
 using std::string;
 using std::vector;
 
 namespace Basic
 {
-    enum class TT
-    {
-        INT,
-        FLOAT,
-        PLUS,
-        MINUS,
-        MUL,
-        DIV,
-        LPAREN,
-        RPAREN
-    };
+    // enum class TT
+    // {
+    //     INT,
+    //     FLOAT,
+    //     PLUS,
+    //     MINUS,
+    //     MUL,
+    //     DIV,
+    //     LPAREN,
+    //     RPAREN
+    // };
 
     class Error
     {
@@ -38,23 +41,6 @@ namespace Basic
     private:
         string m_name;
         string m_details;
-    };
-
-    class Token
-    {
-    public:
-        Token(TT a_type, string a_value);
-        ~Token() {}
-
-        int GetTypeInt();
-        TT GetType() { return m_type; }
-        void PrintType();
-
-        string GetValue() { return m_value; }
-
-    private:
-        string m_value;
-        TT m_type;
     };
 
     class Lexer

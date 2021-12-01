@@ -27,6 +27,7 @@ void Basic::PrintRedText(const char *a_text)
 {
     printf("\x1B[31m%s\033[0m", a_text);
 }
+
 string Basic::Error::AsString()
 {
     string result = "";
@@ -43,50 +44,6 @@ void Basic::Error::Print()
     cout << " : " << m_details << endl;
 }
 
-Basic::Token::Token(TT a_type, string a_value = "")
-{
-    m_type = a_type;
-    m_value = a_value;
-}
-
-int Token::GetTypeInt()
-{
-    return static_cast<int>(m_type);
-}
-
-void Token::PrintType()
-{
-    switch (m_type)
-    {
-    case TT::INT:
-        cout << "[ INT: " << m_value << " ]";
-        break;
-    case TT::FLOAT:
-        cout << "[ FLOAT: " << m_value << " ]";
-        break;
-    case TT::PLUS:
-        cout << "[ PLUS ]";
-        break;
-    case TT::MINUS:
-        cout << "[ MINUS ]";
-        break;
-    case TT::MUL:
-        cout << "[ MUL ]";
-        break;
-    case TT::DIV:
-        cout << "[ DIV ]";
-        break;
-    case TT::LPAREN:
-        cout << "[ LPAREN ]";
-        break;
-    case TT::RPAREN:
-        cout << "[ RPAREN ]";
-        break;
-    default:
-        cout << "[ TYPE NOT SET ]";
-        break;
-    }
-}
 Basic::Lexer::Lexer(string a_text)
 {
     m_text = a_text;
