@@ -14,18 +14,6 @@ using std::vector;
 
 namespace Basic
 {
-    // enum class TT
-    // {
-    //     INT,
-    //     FLOAT,
-    //     PLUS,
-    //     MINUS,
-    //     MUL,
-    //     DIV,
-    //     LPAREN,
-    //     RPAREN
-    // };
-
     class Error
     {
     public:
