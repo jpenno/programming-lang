@@ -1,48 +1,9 @@
-#include "basic.hpp"
-#include <ctype.h>
+#include "Lexer.hpp"
 
-using std::cin;
-using std::cout;
-using std::endl;
 using std::string;
 using std::vector;
+
 using namespace Basic;
-
-vector<Token> Basic::Run(const string &text)
-{
-    Lexer lexer = Lexer(text);
-    auto [tokens, errors] = lexer.MakeTokens();
-
-    if (!errors.empty())
-    {
-        for (auto &&error : errors)
-        {
-            error.Print();
-        }
-    }
-    return tokens;
-}
-
-void Basic::PrintRedText(const char *a_text)
-{
-    printf("\x1B[31m%s\033[0m", a_text);
-}
-
-string Basic::Error::AsString()
-{
-    string result = "";
-    result += m_name;
-    result += ": ";
-    result += m_details;
-
-    return result;
-}
-
-void Basic::Error::Print()
-{
-    PrintRedText(m_name.c_str());
-    cout << " : " << m_details << endl;
-}
 
 Basic::Lexer::Lexer(string a_text)
 {

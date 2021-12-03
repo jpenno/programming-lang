@@ -1,5 +1,6 @@
 #ifndef TOKEN
 #define TOKEN
+
 #include <string>
 
 #include "TT.hpp"

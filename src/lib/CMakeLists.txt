@@ -1,12 +1,16 @@
 # If you create new headers/cpp files, add them to these list!
 set(HEADER_FILES
-	basic.hpp
+	Basic.hpp
   Token.hpp
   TT.hpp
+  Error.hpp
+  Lexer.hpp
 )
 
 set(SOURCE_FILES
-  basic.cpp
+  Basic.cpp
   Token.cpp
+  Error.cpp
+  Lexer.cpp
 )
 add_library(basic_lib ${SOURCE_FILES} ${HEADER_FILES})

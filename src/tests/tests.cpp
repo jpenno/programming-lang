@@ -1,7 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include <vector>
 #include "catch.hpp"
-#include "basic.hpp"
+#include "Basic.hpp"
+#include "Lexer.hpp"
 
 TEST_CASE("Test Lexer")
 {

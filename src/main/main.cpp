@@ -1,14 +1,19 @@
+#include <vector>
 #include <iostream>
 #include <string.h>
-#include "basic.hpp"
+
+#include "Basic.hpp"
+#include "Token.hpp"
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
+using std::vector;
+
 using namespace Basic;
 
-void PrintVector(vector<Basic::Token> a_vector);
+void PrintVector(vector<Token> a_vector);
 
 int main(int argc, const char *argv[])
 {
@@ -34,10 +39,10 @@ int main(int argc, const char *argv[])
 	return 0;
 }
 
-void PrintVector(vector<Basic::Token> a_vector)
+void PrintVector(vector<Token> a_vector)
 {
 	cout << "[ ";
-	for (Basic::Token i : a_vector)
+	for (Token i : a_vector)
 	{
 		i.PrintType();
 	}
