@@ -5,14 +5,15 @@
 #include "Lexer.hpp"
 #include "Error.hpp"
 
+
 using std::string;
 using std::vector;
 
 using namespace Basic;
 
-vector<Token> Basic::Run(const string &text)
+vector<Token> Basic::Run(const string &a_file_name, const string &a_text)
 {
-    Lexer lexer = Lexer(text);
+    Lexer lexer = Lexer(a_file_name, a_text);
     auto [tokens, errors] = lexer.MakeTokens();
 
     if (!errors.empty())

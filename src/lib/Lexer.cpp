@@ -1,32 +1,23 @@
 #include "Lexer.hpp"
 
+#define NO_CHAR '\n'
+
 using std::string;
 using std::vector;
 
 using namespace Basic;
 
-Basic::Lexer::Lexer(string a_text)
+Basic::Lexer::Lexer(string a_file_name, string a_text)
+    : m_pos(Position(0, 0, 0, a_file_name, a_text)),
+      m_text(a_text),
+      m_currentChar(a_text[0])
 {
-    m_text = a_text;
-    m_pos = 0;
-    m_currentChar = m_text[0];
 }
 
 void Basic::Lexer::Advance()
 {
-    m_pos += 1;
-    if (m_pos < m_text.length())
-    {
-        m_currentChar = m_text[m_pos];
-    }
-}
-bool Basic::Lexer::InRange()
-{
-    if (m_pos < m_text.length())
-    {
-        return true;
-    }
-    return false;
+    m_pos.Advance(m_currentChar);
+    m_currentChar = m_pos.GetIdx() < m_text.length() ? m_text[m_pos.GetIdx()] : NO_CHAR;
 }
 
 char Basic::Lexer::GetCurrentChar()
@@ -39,7 +30,7 @@ std::tuple<vector<Token>, vector<Error>> Basic::Lexer::MakeTokens()
     vector<Token> tokens = vector<Token>();
     vector<Error> errors = vector<Error>();
 
-    while (InRange())
+    while (m_currentChar != NO_CHAR)
     {
         if (isspace(m_currentChar))
         {
@@ -84,7 +75,7 @@ std::tuple<vector<Token>, vector<Error>> Basic::Lexer::MakeTokens()
             string details = "'";
             details += m_currentChar;
             details += "'";
-            errors.push_back(Error("Illegal Character", details));
+            errors.push_back(Error("Illegal Character", details, m_pos));
             return {tokens, errors};
         }
     }
@@ -96,7 +87,7 @@ Token Basic::Lexer::MakeNumber()
     string numStr = "";
     int dotCount = 0;
 
-    while (InRange() && (isdigit(m_currentChar) || m_currentChar == '.'))
+    while ((m_currentChar != NO_CHAR) && (isdigit(m_currentChar) || m_currentChar == '.'))
     {
         if (m_currentChar == '.')
         {

@@ -5,6 +5,7 @@ set(HEADER_FILES
   TT.hpp
   Error.hpp
   Lexer.hpp
+  Position.hpp
 )
 
 set(SOURCE_FILES
@@ -12,5 +13,6 @@ set(SOURCE_FILES
   Token.cpp
   Error.cpp
   Lexer.cpp
+  Position.cpp
 )
 add_library(basic_lib ${SOURCE_FILES} ${HEADER_FILES})

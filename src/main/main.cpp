@@ -26,7 +26,7 @@ int main(int argc, const char *argv[])
 		cout << "basic > ";
 		getline(cin, text);
 
-		vector<Token> result = Run(text);
+		vector<Token> result = Run("STD_IN", text);
 
 		PrintVector(result);
 

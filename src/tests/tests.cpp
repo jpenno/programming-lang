@@ -8,42 +8,42 @@ TEST_CASE("Test Lexer")
 {
 	SECTION("Check PLUS + ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("+");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "+");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::PLUS);
 	}
 
 	SECTION("Check MINUS - ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("-");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "-");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::MINUS);
 	}
 
 	SECTION("Check MUL * ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("*");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "*");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::MUL);
 	}
 
 	SECTION("Check DIV / ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("/");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "/");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::DIV);
 	}
 
 	SECTION("Check LPAREN ( ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("(");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "(");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::LPAREN);
 	}
 
 	SECTION("Check RPAREN ) ")
 	{
-		Basic::Lexer lexer = Basic::Lexer(")");
+		Basic::Lexer lexer = Basic::Lexer("TEST", ")");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::RPAREN);
 	}
@@ -51,7 +51,7 @@ TEST_CASE("Test Lexer")
 
 	SECTION("Check INT 10 ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("10");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "10");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::INT);
 		REQUIRE(tokens[0].GetValue() == "10");
@@ -59,7 +59,7 @@ TEST_CASE("Test Lexer")
 
 	SECTION("Check FLOAT 10.10 ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("10.10");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "10.10");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::FLOAT);
 		REQUIRE(tokens[0].GetValue() == "10.10");
@@ -67,7 +67,7 @@ TEST_CASE("Test Lexer")
 
 	SECTION("Check ALL +-*/() ")
 	{
-		Basic::Lexer lexer = Basic::Lexer("+10- */ 10.10( )");
+		Basic::Lexer lexer = Basic::Lexer("TEST", "+10- */ 10.10( )");
 		auto [tokens, errors] = lexer.MakeTokens();
 		REQUIRE(tokens[0].GetType() == Basic::TT::PLUS);
 		REQUIRE(tokens[1].GetType() == Basic::TT::INT);
